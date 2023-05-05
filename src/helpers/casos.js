@@ -11,13 +11,13 @@ import { mediaOfertas, maxOfertas } from './licMath.js'
  * @returns {Array}
  */
 export function casoUno(presupuestoBase, licitadores) {
-    const licitadorA = licitadores[0];
+  const licitadorA = licitadores[0];
 
-    if (licitadorA.oferta < presupuestoBase * 0.75) {
-        licitadorA.temeraria = true;
-    }
+  if (licitadorA.oferta < presupuestoBase * 0.75) {
+    licitadorA.temeraria = true;
+  }
 
-    return licitadores;
+  return licitadores;
 }
 
 /**
@@ -30,16 +30,16 @@ export function casoUno(presupuestoBase, licitadores) {
  * @returns {Array}
  */
 export function casoDos(licitadores) {
-    const licitadorA = licitadores[0];
-    const licitadorB = licitadores[1];
+  const licitadorA = licitadores[0];
+  const licitadorB = licitadores[1];
 
-    if (licitadorA.oferta < licitadorB.oferta * 0.8) {
-        licitadorA.temeraria = true;
-    } else if (licitadorB.oferta < licitadorA.oferta * 0.8) {
-        licitadorB.temeraria = true;
-    }
+  if (licitadorA.oferta < licitadorB.oferta * 0.8) {
+    licitadorA.temeraria = true;
+  } else if (licitadorB.oferta < licitadorA.oferta * 0.8) {
+    licitadorB.temeraria = true;
+  }
 
-    return licitadores;
+  return licitadores;
 }
 
 /**
@@ -57,20 +57,20 @@ export function casoDos(licitadores) {
  * @returns {Array}
  */
 export function casoTres(presupuestoBase, licitadores) {
-    let media = mediaOfertas(licitadores);
-    const licitadorMax = maxOfertas(licitadores, 1);
+  let media = mediaOfertas(licitadores);
+  const licitadorMax = maxOfertas(licitadores, 1);
 
-    if (licitadorMax[0].oferta > media * 1.1) {
-        media = mediaOfertas(licitadores, licitadorMax);
+  if (licitadorMax[0].oferta > media * 1.1) {
+    media = mediaOfertas(licitadores, licitadorMax);
+  }
+
+  licitadores.forEach(licitador => {
+    if (licitador.oferta < media * 0.9 || licitador.oferta < presupuestoBase * 0.75) {
+      licitador.temeraria = true;
     }
+  });
 
-    licitadores.forEach(licitador => {
-        if (licitador.oferta < media * 0.9 || licitador.oferta < presupuestoBase * 0.75) {
-            licitador.temeraria = true;
-        }
-    });
-
-    return licitadores;
+  return licitadores;
 }
 
 /**
@@ -88,5 +88,5 @@ export function casoTres(presupuestoBase, licitadores) {
  * @returns {Array}
  */
 export function casoCuatro(licitadores) {
-    return licitadores;
+  return licitadores;
 }

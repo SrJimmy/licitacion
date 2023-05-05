@@ -7,22 +7,22 @@
  * @returns {number} - La media de las ofertas.
  */
 export function mediaOfertas(licitadores, exclusiones = []) {
-    let total = 0;
-    let contador = 0;
+  let total = 0;
+  let contador = 0;
 
-    for (let i = 0; i < licitadores.length; i++) {
-        const licitador = licitadores[i];
+  for (let i = 0; i < licitadores.length; i++) {
+    const licitador = licitadores[i];
 
-        // Excluye al licitador si se encuentra en el array de exclusiones
-        if (exclusiones.some((exclusion) => exclusion.nombre === licitador.nombre)) {
-            continue;
-        }
-
-        total += licitador.oferta;
-        contador++;
+    // Excluye al licitador si se encuentra en el array de exclusiones
+    if (exclusiones.some((exclusion) => exclusion.nombre === licitador.nombre)) {
+      continue;
     }
 
-    return total / contador;
+    total += licitador.oferta;
+    contador++;
+  }
+
+  return total / contador;
 }
 
 /**
@@ -32,8 +32,8 @@ export function mediaOfertas(licitadores, exclusiones = []) {
  * @returns {Array} - Lista de objetos con ofertas máximas.
  */
 export function maxOfertas(licitadores, cantidad = 1) {
-    // Ordenar la lista de licitadores de manera descendente según la oferta
-    const licitadoresOrdenados = licitadores.sort((a, b) => b.oferta - a.oferta);
+  // Ordenar la lista de licitadores de manera descendente según la oferta
+  const licitadoresOrdenados = licitadores.sort((a, b) => b.oferta - a.oferta);
 
-    return licitadoresOrdenados.slice(0, cantidad);
+  return licitadoresOrdenados.slice(0, cantidad);
 }
