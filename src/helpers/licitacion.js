@@ -1,17 +1,17 @@
-import * as cases from './cases.js';
+import { casoUno, casoDos, casoTres, casoCuatro } from './casos.js';
 
 function licitacion(presupuestoBase, licitadores) {
     const numLics = licitadores.length;
 
     switch (numLics) {
         case 1:
-            return cases.casoUno(presupuestoBase, licitadores);
+            return casoUno(presupuestoBase, licitadores);
         case 2:
-            return cases.casoDos(licitadores);
+            return casoDos(licitadores);
         case 3:
-            return cases.casoTres(presupuestoBase, licitadores);
+            return casoTres(presupuestoBase, licitadores);
         default:
-            return cases.casoCuatro(licitadores);
+            return casoCuatro(licitadores);
     }
 }
 

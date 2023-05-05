@@ -1,4 +1,4 @@
-import * as math from './math.js';
+import { mediaOfertas, maxOfertas } from './licMath.js'
 
 /**
  * Caso 1
@@ -57,11 +57,11 @@ export function casoDos(licitadores) {
  * @returns {Array}
  */
 export function casoTres(presupuestoBase, licitadores) {
-    let media = math.average(licitadores);
-    const licitadorMax = math.max(licitadores, 1);
+    let media = mediaOfertas(licitadores);
+    const licitadorMax = maxOfertas(licitadores, 1);
 
     if (licitadorMax[0].oferta > media * 1.1) {
-        media = math.average(licitadores, licitadorMax);
+        media = mediaOfertas(licitadores, licitadorMax);
     }
 
     licitadores.forEach(licitador => {

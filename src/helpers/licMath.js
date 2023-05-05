@@ -6,7 +6,7 @@
  * @param {Array} [exclusiones=[]] - Lista de licitadores a excluir del cálculo de la media.
  * @returns {number} - La media de las ofertas.
  */
-export function average(licitadores, exclusiones = []) {
+export function mediaOfertas(licitadores, exclusiones = []) {
     let total = 0;
     let contador = 0;
 
@@ -31,7 +31,7 @@ export function average(licitadores, exclusiones = []) {
  * @param {number} numObjetos - Número de objetos con ofertas máximas que se desean encontrar.
  * @returns {Array} - Lista de objetos con ofertas máximas.
  */
-export function max(licitadores, cantidad = 1) {
+export function maxOfertas(licitadores, cantidad = 1) {
     // Ordenar la lista de licitadores de manera descendente según la oferta
     const licitadoresOrdenados = licitadores.sort((a, b) => b.oferta - a.oferta);
 
