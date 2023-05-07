@@ -88,5 +88,32 @@ export function casoTres(presupuestoBase, licitadores) {
  * @returns {Array}
  */
 export function casoCuatro(licitadores) {
+  let media = mediaOfertas(licitadores);
+  let licitadoresInferior = [];
+  let licitadoresSuperior = [];
+
+  licitadores.forEach(licitador => {
+    if (licitador.oferta < media * 0.9) {
+      licitadoresInferior.push(licitador);
+    } else if (licitador.oferta > media * 1.1) {
+      licitadoresSuperior.push(licitador);
+    }
+  });
+
+  if (licitadoresSuperior.length > 0) {
+    media = mediaOfertas(licitadores, licitadoresSuperior);
+  }
+
+  if (licitadoresInferior.length < 3) {
+    const licitadoresTresOfertasMenorCuantia = licitadores.sort((a, b) => a.oferta - b.oferta).slice(0, 3);
+    media = mediaOfertas(licitadoresTresOfertasMenorCuantia);
+  }
+
+  licitadores.forEach(licitador => {
+    if (licitador.oferta < media * 0.9) {
+      licitador.temeraria = true;
+    }
+  });
+
   return licitadores;
 }
