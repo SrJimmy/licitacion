@@ -1,4 +1,4 @@
-import { mediaOfertas, maxOfertas } from './licMath.js'
+import { mediaOfertas, maxOfertas } from "./licMath.js";
 
 /**
  * Caso 1
@@ -64,8 +64,11 @@ export function casoTres(presupuestoBase, licitadores) {
     media = mediaOfertas(licitadores, licitadorMax);
   }
 
-  licitadores.forEach(licitador => {
-    if (licitador.oferta < media * 0.9 || licitador.oferta < presupuestoBase * 0.75) {
+  licitadores.forEach((licitador) => {
+    if (
+      licitador.oferta < media * 0.9 ||
+      licitador.oferta < presupuestoBase * 0.75
+    ) {
       licitador.temeraria = true;
     }
   });
@@ -92,7 +95,7 @@ export function casoCuatro(licitadores) {
   let licitadoresInferior = [];
   let licitadoresSuperior = [];
 
-  licitadores.forEach(licitador => {
+  licitadores.forEach((licitador) => {
     if (licitador.oferta < media * 0.9) {
       licitadoresInferior.push(licitador);
     } else if (licitador.oferta > media * 1.1) {
@@ -105,11 +108,13 @@ export function casoCuatro(licitadores) {
   }
 
   if (licitadoresInferior.length < 3) {
-    const licitadoresTresOfertasMenorCuantia = licitadores.sort((a, b) => a.oferta - b.oferta).slice(0, 3);
+    const licitadoresTresOfertasMenorCuantia = licitadores
+      .sort((a, b) => a.oferta - b.oferta)
+      .slice(0, 3);
     media = mediaOfertas(licitadoresTresOfertasMenorCuantia);
   }
 
-  licitadores.forEach(licitador => {
+  licitadores.forEach((licitador) => {
     if (licitador.oferta < media * 0.9) {
       licitador.temeraria = true;
     }

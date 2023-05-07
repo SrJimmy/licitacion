@@ -1,4 +1,4 @@
-import { casoUno, casoDos, casoTres, casoCuatro } from './casos.js';
+import { casoUno, casoDos, casoTres, casoCuatro } from "./casos.js";
 
 export default function licitacion(presupuestoBase, licitadores) {
   const numLics = licitadores.length;

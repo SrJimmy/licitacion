@@ -1,57 +1,114 @@
-import React, { useState } from 'react';
-import {
-  Container,
-  Box,
-  Button,
-  TextField
-} from '@mui/material';
+import React, { useState } from "react";
+import { Container, Box, Button, TextField } from "@mui/material";
+
+import licitacion from "../helpers/licitacion";
 
 export default function Form() {
-  const [inputField, setInputField] = useState(
-    [{ nombre: '', oferta: '', temeraria: false }]
-  );
+  const [presupuestoBase, setPresupuestoBase] = useState("");
 
-  const handleChange = (index, event) => {
-    const values = [...inputField];
+  const handlePresupuestoBaseChange = (event) => {
+    setPresupuestoBase(event.target.value);
+  };
+
+  const [licitadores, setInputField] = useState([
+    { nombre: "", oferta: "", temeraria: false },
+  ]);
+
+  const handleLicitadoresChange = (index, event) => {
+    const values = [...licitadores];
     values[index][event.target.name] = event.target.value;
     setInputField(values);
   };
 
   const addLicitador = () => {
-    setInputField([...inputField, { nombre: '', oferta: '', temeraria: false }]);
+    setInputField([
+      ...licitadores,
+      { nombre: "", oferta: "", temeraria: false },
+    ]);
   };
 
   const rmLicitador = () => {
-    if (inputField.length > 1) {
-      setInputField(inputField.slice(0, -1));
+    if (licitadores.length > 1) {
+      setInputField(licitadores.slice(0, -1));
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log(inputField);
+    console.log(licitacion(presupuestoBase, licitadores));
   };
 
   return (
     <Container maxWidth="sm">
-      <Box component="form" onSubmit={handleSubmit}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, mb: 3 }}>
-          <Button variant="contained" color="success" onClick={addLicitador} sx={{ width: '33%' }}>Añadir licitador</Button>
-          <Button type="submit" variant="contained" color="primary" sx={{ width: '33%' }}>Calcular</Button>
-          <Button variant="contained" color="error" onClick={rmLicitador} sx={{ width: '33%' }}>Quitar licitador</Button>
+      <Box component="form" onSubmit={handleFormSubmit}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 3, mb: 3 }}>
+          <Button
+            color="success"
+            onClick={addLicitador}
+            sx={{ width: "33%" }}
+            variant="contained"
+          >
+            Añadir licitador
+          </Button>
+          <Button
+            color="primary"
+            sx={{ width: "33%" }}
+            type="submit"
+            variant="contained"
+          >
+            Calcular
+          </Button>
+          <Button
+            color="error"
+            onClick={rmLicitador}
+            sx={{ width: "33%" }}
+            variant="contained"
+          >
+            Quitar licitador
+          </Button>
         </Box>
 
         <Box sx={{ mb: 3 }}>
-          <TextField required type="number" name="presupuestoBase" label="Presupuesto Base" size="small" variant="outlined" sx={{ width: '100%' }} />
+          <TextField
+            label="Presupuesto Base"
+            name="presupuestoBase"
+            onChange={handlePresupuestoBaseChange}
+            required
+            size="small"
+            sx={{ width: "100%" }}
+            value={presupuestoBase}
+            variant="outlined"
+          />
         </Box>
 
-        {inputField.map((inputField, index) => (
-          <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 3, mb: 1 }}>
-            <TextField required name="nombre" label="Nombre" value={inputField.nombre} size="small" variant="outlined" onChange={(event) => handleChange(index, event)} sx={{ width: '50%' }} />
-            <TextField required name="oferta" label="Oferta" value={inputField.oferta} size="small" variant="outlined" onChange={(event) => handleChange(index, event)} sx={{ width: '50%' }} />
+        {licitadores.map((licitador, index) => (
+          <Box
+            key={index}
+            sx={{ display: "flex", alignItems: "center", gap: 3, mb: 1 }}
+          >
+            <TextField
+              label="Nombre"
+              name="nombre"
+              onChange={(event) => handleLicitadoresChange(index, event)}
+              required
+              size="small"
+              sx={{ width: "50%" }}
+              value={licitador.nombre}
+              variant="outlined"
+            />
+            <TextField
+              label="Oferta"
+              name="oferta"
+              onChange={(event) => handleLicitadoresChange(index, event)}
+              required
+              size="small"
+              sx={{ width: "50%" }}
+              value={licitador.oferta}
+              variant="outlined"
+            />
           </Box>
         ))}
       </Box>
     </Container>
   );
-};
+}

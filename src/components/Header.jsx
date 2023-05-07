@@ -1,10 +1,5 @@
-import React from 'react';
-import {
-  CssBaseline,
-  AppBar,
-  Toolbar,
-  Typography
-} from '@mui/material';
+import React from "react";
+import { CssBaseline, AppBar, Toolbar, Typography } from "@mui/material";
 
 export default function Header(props) {
   return (
@@ -17,4 +12,4 @@ export default function Header(props) {
       </AppBar>
     </>
   );
-};
+}

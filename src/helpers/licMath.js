@@ -14,7 +14,9 @@ export function mediaOfertas(licitadores, exclusiones = []) {
     const licitador = licitadores[i];
 
     // Excluye al licitador si se encuentra en el array de exclusiones
-    if (exclusiones.some((exclusion) => exclusion.nombre === licitador.nombre)) {
+    if (
+      exclusiones.some((exclusion) => exclusion.nombre === licitador.nombre)
+    ) {
       continue;
     }
 
