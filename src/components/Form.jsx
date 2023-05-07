@@ -1,5 +1,16 @@
 import React, { useState } from "react";
-import { Container, Box, Button, TextField } from "@mui/material";
+import {
+  Container,
+  Box,
+  Button,
+  TextField,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 
 import licitacion from "../helpers/licitacion";
 
@@ -10,18 +21,27 @@ export default function Form() {
     setPresupuestoBase(event.target.value);
   };
 
-  const [licitadores, setInputField] = useState([
-    { nombre: "", oferta: "", temeraria: false },
+  const [licitadores, setLicitadores] = useState([
+    { nombre: "", oferta: undefined, temeraria: false },
   ]);
 
   const handleLicitadoresChange = (index, event) => {
     const values = [...licitadores];
-    values[index][event.target.name] = event.target.value;
-    setInputField(values);
+    if (event.target.name === "oferta") {
+      values[index] = {
+        ...values[index],
+        [event.target.name]: parseFloat(event.target.value),
+      };
+    } else {
+      values[index] = {
+        ...values[index],
+        [event.target.name]: event.target.value,
+      };
+    }
+    setLicitadores(values);
   };
-
   const addLicitador = () => {
-    setInputField([
+    setLicitadores([
       ...licitadores,
       { nombre: "", oferta: "", temeraria: false },
     ]);
@@ -29,13 +49,26 @@ export default function Form() {
 
   const rmLicitador = () => {
     if (licitadores.length > 1) {
-      setInputField(licitadores.slice(0, -1));
+      setLicitadores(licitadores.slice(0, -1));
     }
   };
 
+  const resetForm = () => {
+    setPresupuestoBase("");
+    setLicitadores([{ nombre: "", oferta: "", temeraria: false }]);
+  };
+
+  const [resultados, setResultados] = useState([]);
+
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log(licitacion(presupuestoBase, licitadores));
+    const updatedLicitadores = licitadores.map((licitador) => {
+      return { ...licitador, temeraria: false };
+    });
+    setLicitadores(updatedLicitadores);
+    const result = licitacion(presupuestoBase, updatedLicitadores);
+    setResultados(result);
+    console.log(result);
   };
 
   return (
@@ -45,26 +78,34 @@ export default function Form() {
           <Button
             color="success"
             onClick={addLicitador}
-            sx={{ width: "33%" }}
+            sx={{ width: "25%" }}
             variant="contained"
           >
-            Añadir licitador
+            Añadir
           </Button>
           <Button
             color="primary"
-            sx={{ width: "33%" }}
+            sx={{ width: "25%" }}
             type="submit"
-            variant="contained"
+            variant="outlined"
           >
             Calcular
           </Button>
           <Button
+            color="secondary"
+            onClick={resetForm}
+            sx={{ width: "25%" }}
+            variant="outlined"
+          >
+            Reset
+          </Button>
+          <Button
             color="error"
             onClick={rmLicitador}
-            sx={{ width: "33%" }}
+            sx={{ width: "25%" }}
             variant="contained"
           >
-            Quitar licitador
+            Quitar
           </Button>
         </Box>
 
@@ -109,6 +150,27 @@ export default function Form() {
           </Box>
         ))}
       </Box>
+
+      <TableContainer sx={{ mt: 6 }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Nombre</TableCell>
+              <TableCell>Oferta</TableCell>
+              <TableCell>Temeraria</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {resultados.map((item, index) => (
+              <TableRow key={index}>
+                <TableCell>{item.nombre}</TableCell>
+                <TableCell>{item.oferta}</TableCell>
+                <TableCell>{item.temeraria ? "Sí" : "No"}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Container>
   );
 }
