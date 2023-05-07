@@ -22,24 +22,27 @@ export default function Form() {
   };
 
   const [licitadores, setLicitadores] = useState([
-    { nombre: "", oferta: undefined, temeraria: false },
+    { nombre: "", oferta: "", temeraria: false },
   ]);
 
   const handleLicitadoresChange = (index, event) => {
     const values = [...licitadores];
+    let newValue;
     if (event.target.name === "oferta") {
-      values[index] = {
-        ...values[index],
-        [event.target.name]: parseFloat(event.target.value),
-      };
+      newValue = parseFloat(event.target.value);
+      if (isNaN(newValue)) {
+        newValue = undefined;
+      }
     } else {
-      values[index] = {
-        ...values[index],
-        [event.target.name]: event.target.value,
-      };
+      newValue = event.target.value;
     }
+    values[index] = {
+      ...values[index],
+      [event.target.name]: newValue,
+    };
     setLicitadores(values);
   };
+
   const addLicitador = () => {
     setLicitadores([
       ...licitadores,
