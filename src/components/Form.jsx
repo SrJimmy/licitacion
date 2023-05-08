@@ -10,6 +10,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
 
 import licitacion from "../helpers/licitacion";
@@ -76,6 +77,15 @@ export default function Form() {
 
   return (
     <Container maxWidth="sm">
+      <Box sx={{ mb: 3 }}>
+        <Typography variant="h4" align="center">
+          Cálculo licitación pública
+        </Typography>
+        <Typography variant="h6" align="center">
+          Contratos mayores
+        </Typography>
+      </Box>
+
       <Box component="form" onSubmit={handleFormSubmit}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 3, mb: 3 }}>
           <Button
@@ -122,21 +132,23 @@ export default function Form() {
             sx={{ width: "100%" }}
             value={presupuestoBase}
             variant="outlined"
+            type="number"
+            step={0.01}
           />
         </Box>
 
         {licitadores.map((licitador, index) => (
           <Box
             key={index}
-            sx={{ display: "flex", alignItems: "center", gap: 3, mb: 1 }}
+            sx={{ display: "flex", alignItems: "center", gap: 3, mb: 2 }}
           >
             <TextField
-              label="Nombre"
+              label="Licitador"
               name="nombre"
               onChange={(event) => handleLicitadoresChange(index, event)}
               required
               size="small"
-              sx={{ width: "50%" }}
+              sx={{ width: "60%" }}
               value={licitador.nombre}
               variant="outlined"
             />
@@ -146,9 +158,11 @@ export default function Form() {
               onChange={(event) => handleLicitadoresChange(index, event)}
               required
               size="small"
-              sx={{ width: "50%" }}
+              sx={{ width: "40%" }}
               value={licitador.oferta}
               variant="outlined"
+              type="number"
+              step={0.01}
             />
           </Box>
         ))}
@@ -158,9 +172,9 @@ export default function Form() {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Nombre</TableCell>
+              <TableCell>Licitador</TableCell>
               <TableCell>Oferta</TableCell>
-              <TableCell>Temeraria</TableCell>
+              <TableCell>Anormalmente baja</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -168,7 +182,11 @@ export default function Form() {
               <TableRow key={index}>
                 <TableCell>{item.nombre}</TableCell>
                 <TableCell>{item.oferta}</TableCell>
-                <TableCell>{item.temeraria ? "Sí" : "No"}</TableCell>
+                <TableCell>
+                  <Typography color={item.temeraria ? "error" : ""}>
+                    {item.temeraria ? "Sí" : "No"}
+                  </Typography>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
