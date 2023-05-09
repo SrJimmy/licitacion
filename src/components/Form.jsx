@@ -1,17 +1,7 @@
 import React, { useState } from "react";
-import {
-  Container,
-  Box,
-  Button,
-  TextField,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import { Container, Box, Button, TextField, Typography } from "@mui/material";
+
+import TableResult from "./TableResult";
 
 import licitacion from "../helpers/licitacion";
 
@@ -168,30 +158,7 @@ export default function Form() {
         ))}
       </Box>
 
-      <TableContainer sx={{ mt: 6 }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Licitador</TableCell>
-              <TableCell>Oferta</TableCell>
-              <TableCell>Anormalmente baja</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {resultados.map((item, index) => (
-              <TableRow key={index}>
-                <TableCell>{item.nombre}</TableCell>
-                <TableCell>{item.oferta}</TableCell>
-                <TableCell>
-                  <Typography color={item.temeraria ? "error" : ""}>
-                    {item.temeraria ? "Sí" : "No"}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <TableResult resultados={resultados} />
     </Container>
   );
 }
