@@ -28,7 +28,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
-          username: ${{ github.repository_owner }}
+          username: ${{ github.actor }}
           password: ${{ secrets.REGISTRY_TOKEN }}
 
       - name: Build and push docker image
@@ -38,3 +38,10 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ghcr.io/srjimmy/licitacion:latest
+
+      - name: Upload docker image to GitHub Package Registry
+        uses: docker/upload-action@v2
+        with:
+          name: ghcr.io/srjimmy/licitacion
+          username: ${{ github.actor }}
+          password: ${{ secrets.REGISTRY_TOKEN }}
