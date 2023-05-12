@@ -85,8 +85,8 @@ export function casoCuatro(licitadores) {
   const licts = [...licitadores];
 
   let media = mediaOfertas(licts);
-  const lictsInferior = licts.filter((l) => l.oferta < media * 0.9);
-  const lictsSuperior = licts.filter((l) => l.oferta > media * 1.1);
+  const lictsInferior = licts.filter((lict) => lict.oferta < media * 0.9);
+  const lictsSuperior = licts.filter((lict) => lict.oferta > media * 1.1);
 
   if (lictsSuperior.length > 0) {
     media = mediaOfertas(licts, lictsSuperior);
