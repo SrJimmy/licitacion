@@ -38,10 +38,3 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ghcr.io/srjimmy/licitacion:latest
-
-      - name: Upload docker image to GitHub Package Registry
-        uses: docker/upload-action@v2
-        with:
-          name: ghcr.io/srjimmy/licitacion
-          username: ${{ github.actor }}
-          password: ${{ secrets.REGISTRY_TOKEN }}
