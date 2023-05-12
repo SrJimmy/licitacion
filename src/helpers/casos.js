@@ -11,13 +11,11 @@ import { mediaOfertas, maxOfertas } from "./licMath.js";
  * @returns {Array}
  */
 export function casoUno(presupuestoBase, licitadores) {
-  const licitadorA = licitadores[0];
+  const [lictA, ...resto] = [...licitadores];
 
-  if (licitadorA.oferta < presupuestoBase * 0.75) {
-    licitadorA.temeraria = true;
-  }
+  lictA.temeraria = lictA.oferta < presupuestoBase * 0.75;
 
-  return licitadores;
+  return [lictA, ...resto];
 }
 
 /**
@@ -30,16 +28,12 @@ export function casoUno(presupuestoBase, licitadores) {
  * @returns {Array}
  */
 export function casoDos(licitadores) {
-  const licitadorA = licitadores[0];
-  const licitadorB = licitadores[1];
+  const [lictA, lictB, ...resto] = [...licitadores];
 
-  if (licitadorA.oferta < licitadorB.oferta * 0.8) {
-    licitadorA.temeraria = true;
-  } else if (licitadorB.oferta < licitadorA.oferta * 0.8) {
-    licitadorB.temeraria = true;
-  }
+  lictA.temeraria = lictA.oferta < lictB.oferta * 0.8;
+  lictB.temeraria = !lictA.temeraria && lictB.oferta < lictA.oferta * 0.8;
 
-  return licitadores;
+  return [lictA, lictB, ...resto];
 }
 
 /**
@@ -57,23 +51,20 @@ export function casoDos(licitadores) {
  * @returns {Array}
  */
 export function casoTres(presupuestoBase, licitadores) {
-  let media = mediaOfertas(licitadores);
-  const licitadorMax = maxOfertas(licitadores, 1);
+  const licts = [...licitadores];
 
-  if (licitadorMax[0].oferta > media * 1.1) {
-    media = mediaOfertas(licitadores, licitadorMax);
-  }
+  const media =
+    maxOfertas(licts, 1)[0].oferta > mediaOfertas(licts) * 1.1
+      ? mediaOfertas(licts, maxOfertas(licts, 1))
+      : mediaOfertas(licts);
 
-  licitadores.forEach((licitador) => {
-    if (
-      licitador.oferta < media * 0.9 ||
-      licitador.oferta < presupuestoBase * 0.75
-    ) {
-      licitador.temeraria = true;
-    }
-  });
+  licts.forEach(
+    (lict) =>
+      (lict.temeraria =
+        lict.oferta < media * 0.9 || lict.oferta < presupuestoBase * 0.75)
+  );
 
-  return licitadores;
+  return licts;
 }
 
 /**
@@ -91,34 +82,24 @@ export function casoTres(presupuestoBase, licitadores) {
  * @returns {Array}
  */
 export function casoCuatro(licitadores) {
-  let media = mediaOfertas(licitadores);
-  let licitadoresInferior = [];
-  let licitadoresSuperior = [];
+  const licts = [...licitadores];
 
-  licitadores.forEach((licitador) => {
-    if (licitador.oferta < media * 0.9) {
-      licitadoresInferior.push(licitador);
-    } else if (licitador.oferta > media * 1.1) {
-      licitadoresSuperior.push(licitador);
-    }
-  });
+  let media = mediaOfertas(licts);
+  const lictsInferior = licts.filter((l) => l.oferta < media * 0.9);
+  const lictsSuperior = licts.filter((l) => l.oferta > media * 1.1);
 
-  if (licitadoresSuperior.length > 0) {
-    media = mediaOfertas(licitadores, licitadoresSuperior);
+  if (lictsSuperior.length > 0) {
+    media = mediaOfertas(licts, lictsSuperior);
   }
 
-  if (licitadoresInferior.length < 3) {
-    const licitadoresTresOfertasMenorCuantia = licitadores
+  if (lictsInferior.length < 3) {
+    const lictsTresOfertasMenorCuantia = licts
       .sort((a, b) => a.oferta - b.oferta)
       .slice(0, 3);
-    media = mediaOfertas(licitadoresTresOfertasMenorCuantia);
+    media = mediaOfertas(lictsTresOfertasMenorCuantia);
   }
 
-  licitadores.forEach((licitador) => {
-    if (licitador.oferta < media * 0.9) {
-      licitador.temeraria = true;
-    }
-  });
+  licts.forEach((lict) => (lict.temeraria = lict.oferta < media * 0.9));
 
-  return licitadores;
+  return licts;
 }

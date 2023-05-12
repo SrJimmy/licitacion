@@ -14,9 +14,7 @@ export function mediaOfertas(licitadores, exclusiones = []) {
     const licitador = licitadores[i];
 
     // Excluye al licitador si se encuentra en el array de exclusiones
-    if (
-      exclusiones.some((exclusion) => exclusion.nombre === licitador.nombre)
-    ) {
+    if (exclusiones.some((exc) => exc.nombre === licitador.nombre)) {
       continue;
     }
 
@@ -34,8 +32,7 @@ export function mediaOfertas(licitadores, exclusiones = []) {
  * @returns {Array} - Lista de objetos con ofertas máximas.
  */
 export function maxOfertas(licitadores, cantidad = 1) {
-  // Ordenar la lista de licitadores de manera descendente según la oferta
-  const licitadoresOrdenados = licitadores.sort((a, b) => b.oferta - a.oferta);
-
-  return licitadoresOrdenados.slice(0, cantidad);
+  return [...licitadores]
+    .sort((a, b) => b.oferta - a.oferta)
+    .slice(0, cantidad);
 }
