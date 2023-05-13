@@ -1,3 +1,10 @@
+<p align="center">
+  <img alt="Master build workflow status" src="https://img.shields.io/github/actions/workflow/status/srjimmy/licitacion/build.yml?branch=master">
+  <img alt="License AGPL" src="https://img.shields.io/github/license/srjimmy/licitacion">
+  <img alt="Master package.json version" src="https://img.shields.io/github/package-json/v/srjimmy/licitacion/master">
+</p>
+
+
 ## 📈 Calculadora de baja anormal
 
 Esta aplicación web permite calcular aquellos licitadores cuya
