@@ -42,5 +42,5 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:latest
-            ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:${{ env.REACT_APP_VERSION }}
+            ghcr.io/srjimmy/licitacion:latest
+            ghcr.io/srjimmy/licitacion:${{ env.REACT_APP_VERSION }}
