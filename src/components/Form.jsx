@@ -156,14 +156,17 @@ export default function Form() {
               type="number"
               step={0.01}
             />
-            <IconButton
-              aria-label="Añadir"
-              color="success"
-              onClick={addLicitador}
-              sx={{ width: "5%" }}
-            >
-              <AddCircle />
-            </IconButton>
+
+            {licitadores.length === index + 1 ? (
+              <IconButton
+                aria-label="Añadir"
+                color="success"
+                onClick={addLicitador}
+                sx={{ width: "5%" }}
+              >
+                <AddCircle />
+              </IconButton>
+            ) : null}
             <IconButton
               aria-label="Eliminar"
               color="error"
