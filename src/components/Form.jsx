@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Container, Box, Button, TextField, Typography } from "@mui/material";
+import {
+  Container,
+  Box,
+  Button,
+  TextField,
+  Typography,
+  IconButton,
+} from "@mui/material";
+
+import { AddCircle, RemoveCircle } from "@mui/icons-material/";
 
 import TableResult from "./TableResult";
 import TemplateResult from "./TemplateResult";
@@ -80,36 +89,28 @@ export default function Form() {
       <Box component="form" onSubmit={handleFormSubmit} sx={{ mb: 6 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 3, mb: 3 }}>
           <Button
-            color="success"
-            onClick={addLicitador}
-            sx={{ width: "25%" }}
-            variant="contained"
-          >
-            Añadir
-          </Button>
-          <Button
             color="primary"
-            sx={{ width: "25%" }}
+            sx={{ width: "33%" }}
             type="submit"
-            variant="outlined"
+            variant="contained"
           >
             Calcular
           </Button>
           <Button
-            color="secondary"
-            onClick={resetForm}
-            sx={{ width: "25%" }}
-            variant="outlined"
-          >
-            Reset
-          </Button>
-          <Button
-            color="error"
-            onClick={rmLicitador}
-            sx={{ width: "25%" }}
+            color="warning"
+            // onClick={}
+            sx={{ width: "33%" }}
             variant="contained"
           >
-            Quitar
+            Imprimir
+          </Button>
+          <Button
+            color="secondary"
+            onClick={resetForm}
+            sx={{ width: "33%" }}
+            variant="contained"
+          >
+            Reset
           </Button>
         </Box>
 
@@ -139,7 +140,7 @@ export default function Form() {
               onChange={(event) => handleLicitadoresChange(index, event)}
               required
               size="small"
-              sx={{ width: "60%" }}
+              sx={{ width: "70%" }}
               value={licitador.nombre}
               variant="outlined"
             />
@@ -149,12 +150,28 @@ export default function Form() {
               onChange={(event) => handleLicitadoresChange(index, event)}
               required
               size="small"
-              sx={{ width: "40%" }}
+              sx={{ width: "20%" }}
               value={licitador.oferta}
               variant="outlined"
               type="number"
               step={0.01}
             />
+            <IconButton
+              aria-label="Añadir"
+              color="success"
+              onClick={addLicitador}
+              sx={{ width: "5%" }}
+            >
+              <AddCircle />
+            </IconButton>
+            <IconButton
+              aria-label="Eliminar"
+              color="error"
+              onClick={rmLicitador}
+              sx={{ width: "5%" }}
+            >
+              <RemoveCircle />
+            </IconButton>
           </Box>
         ))}
       </Box>
