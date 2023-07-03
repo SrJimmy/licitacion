@@ -11,7 +11,7 @@ import {
 
 export default function TableResult({ resultados }) {
   return (
-    <TableContainer sx={{ mt: 6 }}>
+    <TableContainer sx={{ mb: 6 }}>
       <Table>
         <TableHead>
           <TableRow>

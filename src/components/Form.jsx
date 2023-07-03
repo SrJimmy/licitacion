@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, Box, Button, TextField, Typography } from "@mui/material";
 
 import TableResult from "./TableResult";
+import TemplateResult from "./TemplateResult";
 
 import licitacion from "../helpers/licitacion";
 
@@ -76,7 +77,7 @@ export default function Form() {
         </Typography>
       </Box>
 
-      <Box component="form" onSubmit={handleFormSubmit}>
+      <Box component="form" onSubmit={handleFormSubmit} sx={{ mb: 6 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 3, mb: 3 }}>
           <Button
             color="success"
@@ -158,6 +159,10 @@ export default function Form() {
         ))}
       </Box>
 
+      <TemplateResult
+        presupuestoBase={presupuestoBase}
+        resultados={resultados}
+      />
       <TableResult resultados={resultados} />
     </Container>
   );
