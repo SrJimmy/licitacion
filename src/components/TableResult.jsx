@@ -24,7 +24,7 @@ export default function TableResult({ resultados }) {
           {resultados.map((item, index) => (
             <TableRow key={index}>
               <TableCell>{item.nombre}</TableCell>
-              <TableCell>{item.oferta}</TableCell>
+              <TableCell>{item.oferta.toFixed(2)}</TableCell>
               <TableCell>
                 <Typography color={item.temeraria ? "error" : ""}>
                   {item.temeraria ? "Sí" : "No"}
