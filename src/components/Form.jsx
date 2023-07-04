@@ -67,8 +67,8 @@ export default function Form() {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ mb: 3 }}>
+    <Container maxWidth="md">
+      <Box sx={{ mb: 2 }}>
         <Typography variant="h4" align="center">
           Cálculo licitación pública
         </Typography>
@@ -77,8 +77,8 @@ export default function Form() {
         </Typography>
       </Box>
 
-      <Box component="form" onSubmit={handleFormSubmit} sx={{ mb: 6 }}>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 3, mb: 3 }}>
+      <Box component="form" onSubmit={handleFormSubmit} sx={{ mb: 2 }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 3, mb: 2 }}>
           <Button
             color="success"
             onClick={addLicitador}
@@ -113,7 +113,7 @@ export default function Form() {
           </Button>
         </Box>
 
-        <Box sx={{ mb: 3 }}>
+        <Box sx={{ mb: 2 }}>
           <TextField
             label="Presupuesto Base"
             name="presupuestoBase"
@@ -163,7 +163,6 @@ export default function Form() {
         presupuestoBase={presupuestoBase}
         resultados={resultados}
       />
-      <TableResult resultados={resultados} />
     </Container>
   );
 }
