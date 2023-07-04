@@ -41,7 +41,10 @@ export default function TemplateResult({ presupuestoBase, resultados }) {
               € y supone una baja del{" "}
               <b>{(100 - (item.oferta / presupuestoBase) * 100).toFixed(2)}</b>%
               sobre el PBL, presenta valores{" "}
-              <Typography color={item.temeraria ? "error" : ""}>
+              <Typography
+                display="inline"
+                 color={item.temeraria ? "error" : ""}
+              >
                 <b>{item.temeraria ? "anormales" : "normales"}</b>.
               </Typography>
             </li>
