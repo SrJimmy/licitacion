@@ -163,6 +163,7 @@ export default function Form() {
         presupuestoBase={presupuestoBase}
         resultados={resultados}
       />
+      <TableResult resultados={resultados} />
     </Container>
   );
 }

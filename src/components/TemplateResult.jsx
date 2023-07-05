@@ -24,7 +24,7 @@ export default function TemplateResult({ presupuestoBase, resultados }) {
         </Typography>
         <Typography>
           Resultados del cálculo para un presupuesto base de licitación (PBL) de{" "}
-          <b>{presupuestoBase}</b>€ y las siguientes <b>{numLicts}</b> ofertas{" "}
+          <b>{presupuestoBase}</b>€ y las siguientes <b>{numLicts}</b> ofertas
           presentadas por los licitadores, siguiendo lo citado en el Artículo
           85.3 RGLCAP:
         </Typography>
@@ -43,7 +43,7 @@ export default function TemplateResult({ presupuestoBase, resultados }) {
               sobre el PBL, presenta valores{" "}
               <Typography
                 display="inline"
-                 color={item.temeraria ? "error" : ""}
+                color={item.temeraria ? "error" : ""}
               >
                 <b>{item.temeraria ? "anormales" : "normales"}</b>.
               </Typography>
