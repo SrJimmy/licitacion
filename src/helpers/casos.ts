@@ -1,19 +1,23 @@
 import { mediaOfertas, maxOfertas } from "./licMath.js";
 
+interface Licitador {
+  nombre: string;
+  oferta: number;
+  temeraria: boolean;
+}
+
+interface Licitadores extends Array<Licitador> {}
+
 /**
  * Caso 1
  *
  * Cuando, concurriendo un solo licitador, sea inferior al presupuesto base de
  * licitación en más de 25 unidades de porcentaje.
- *
- * @param {Number} presupuestoBase
- * @param {Array} licitadores
- * @returns {Array}
  */
-export function casoUno(presupuestoBase, licitadores) {
+export function casoUno(pbl: number, licitadores: Licitadores): Licitadores {
   const [lictA, ...resto] = [...licitadores];
 
-  lictA.temeraria = lictA.oferta < presupuestoBase * 0.75;
+  lictA.temeraria = lictA.oferta < pbl * 0.75;
 
   return [lictA, ...resto];
 }
@@ -23,11 +27,8 @@ export function casoUno(presupuestoBase, licitadores) {
  *
  * Cuando concurran dos licitadores, la que sea inferior en más de 20 unidades
  * de porcentaje a la otra oferta.
- *
- * @param {Array} licitadores
- * @returns {Array}
  */
-export function casoDos(licitadores) {
+export function casoDos(licitadores: Licitadores): Licitadores {
   const [lictA, lictB, ...resto] = [...licitadores];
 
   lictA.temeraria = lictA.oferta < lictB.oferta * 0.8;
@@ -45,23 +46,18 @@ export function casoDos(licitadores) {
  * más elevada cuando sea superior en más de 10 unidades de porcentaje a dicha media.
  * En cualquier caso, se considerará desproporcionada la baja superior a
  * 25 unidades de porcentaje respecto al presupuesto base.
- *
- * @param {Number} presupuestoBase
- * @param {Array} licitadores
- * @returns {Array}
  */
-export function casoTres(presupuestoBase, licitadores) {
+export function casoTres(pbl: number, licitadores: Licitadores): Licitadores {
   const licts = [...licitadores];
 
-  const media =
+  const media: number =
     maxOfertas(licts, 1)[0].oferta > mediaOfertas(licts) * 1.1
       ? mediaOfertas(licts, maxOfertas(licts, 1))
       : mediaOfertas(licts);
 
   licts.forEach(
     (lict) =>
-      (lict.temeraria =
-        lict.oferta < media * 0.9 || lict.oferta < presupuestoBase * 0.75)
+      (lict.temeraria = lict.oferta < media * 0.9 || lict.oferta < pbl * 0.75)
   );
 
   return licts;
@@ -77,14 +73,11 @@ export function casoTres(presupuestoBase, licitadores) {
  * sólo con las ofertas que no se encuentren en el supuesto indicado.En todo caso,
  * si el número de las restantes ofertas es inferior a tres, la nueva media se
  * calculará sobre las tres ofertas de menor cuantía.
- *
- * @param {Array} licitadores
- * @returns {Array}
  */
-export function casoCuatro(licitadores) {
+export function casoCuatro(licitadores: Licitadores): Licitadores {
   const licts = [...licitadores];
 
-  let media = mediaOfertas(licts);
+  let media: number = mediaOfertas(licts);
   const lictsInferior = licts.filter((lict) => lict.oferta < media * 0.9);
   const lictsSuperior = licts.filter((lict) => lict.oferta > media * 1.1);
 
